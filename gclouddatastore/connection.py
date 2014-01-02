@@ -22,7 +22,7 @@ class Connection(object):
           dataset_id=self._dataset_id)
 
   @property
-  def client(self):
+  def http(self):
     if not self._http:
       self._http = httplib2.Http()
       if self._credentials:
@@ -31,18 +31,23 @@ class Connection(object):
 
   def query(self, *args, **kwargs):
     query = Query(*args, **kwargs)
-    query.connection = self
+    query._connection = self
     return query
 
-  def _run_query(self, query):
+  def _run_query(self, query, namespace=None):
     request = datastore_pb.RunQueryRequest()
+
+    if namespace:
+      request.partition_id.namespace = namespace
+
     request.query.CopyFrom(query)
+
     payload = request.SerializeToString()
     headers = {
         'Content-Type': 'application/x-protobuf',
         'Content-Length': str(len(payload)),
         }
-    headers, content = self.client.request(uri=self.api_url + 'runQuery',
+    headers, content = self.http.request(uri=self.api_url + 'runQuery',
         method='POST', headers=headers, body=payload)
 
     # TODO(jjg): Check if the response was valid or not.
