@@ -1,55 +1,54 @@
 from datetime import datetime
 
-from protobuf_to_dict import protobuf_to_dict
-import pytz
-
+from gclouddatastore import helpers
 from gclouddatastore.key import Key
 
 
-class Entity(object):
+class Entity(dict):
 
-  # TODO(jjg): Make this complete...
-  VALUE_TYPES = ('boolean', 'double', 'integer', 'string')
+  def __init__(self, key=None, connection=None):
+    self._connection = connection
+    self._key = key
 
-
-  def __init__(self, key):
-    self.key = key
-    self.properties = {}
+  def key(self, key=None):
+    if key:
+      self._key = key
+      return self
+    else:
+      return self._key
 
   @classmethod
   def from_protobuf(cls, pb):
-    entity = cls(Key.from_protobuf(pb.key))
+    entity = cls(key=Key.from_protobuf(pb.key))
 
-    for prop in pb.property:
-
-      # datetime objects are handled differently, so try that first.
-      if prop.value.HasField('timestamp_microseconds_value'):
-        value = datetime.fromtimestamp(
-            prop.value.timestamp_microseconds_value / 1e6)
-        entity.properties[prop.name] = value.replace(tzinfo=pytz.utc)
-
-      elif prop.value.HasField('key_value'):
-        entity.properties[prop.name] = Key.from_protobuf(prop.value.key_value)
-
-      else:
-        # Try all the other types and see what we find.
-        for value_type in cls.VALUE_TYPES:
-          attr_name = value_type + '_value'
-          if prop.value.HasField(attr_name):
-            value = getattr(prop.value, attr_name)
-            entity.properties[prop.name] = value
-            break
+    for property_pb in pb.property:
+      value = helpers.get_value_from_protobuf(property_pb)
+      entity[property_pb.name] = value
 
     return entity
 
-  def to_dict(self):
-    return self.properties
+  def reload(self):
+    """Reloads the contents of this entity from the datastore."""
 
-  def __getattr__(self, name):
-    if name in self.properties:
-      return self.properties[name]
+    # Note that you must have a valid key, otherwise this makes no sense.
+    entity = self._connection.get_entities(self.key())
+    # TODO(jjg): Raise an error if something dumb happens.
+    if entity:
+      self.update(entity)
+    return self
 
-    raise AttributeError
+  def save(self):
+    key = self._connection.save_entity(self)
+    self.key(Key.from_protobuf(key))
+    return self
+
+  def delete(self):
+    response = self._connection.delete_entities([self])
 
   def __repr__(self):
-    return '<%s, %s>' % (self.key.path, self.properties)
+    # TODO: Make sure that this makes sense.
+    # An entity should have a key all the time (even if it's partial).
+    if self.key():
+      return '<Entity%s %s>' % (self.key().path(), super(Entity, self).__repr__())
+    else:
+      return '<Entity %s>' % (super(Entity, self).__repr__())

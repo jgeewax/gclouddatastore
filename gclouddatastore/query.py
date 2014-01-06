@@ -1,6 +1,7 @@
 import copy
 
 from gclouddatastore import datastore_v1_pb2 as datastore_pb
+from gclouddatastore import helpers
 from gclouddatastore.entity import Entity
 
 
@@ -14,17 +15,27 @@ class Query(object):
       '=': datastore_pb.PropertyFilter.EQUAL,
       }
 
-  def __init__(self, *kinds):
-    self._connection = None
-    self._query = datastore_pb.Query()
-    self._namespace = None
-    self.kind(*kinds)
+  def __init__(self, kinds=None, connection=None, namespace=None):
+    self._connection = connection
+    self._namespace = namespace
+    self._pb = datastore_pb.Query()
+
+    if kinds:
+      self.kind(*kinds)
 
   def _clone(self):
     # TODO(jjg): Double check that this makes sense...
     clone = copy.deepcopy(self)
     clone._connection = self._connection  # Shallow copy the connection.
     return clone
+
+  def connection(self, connection=None):
+    if connection:
+      clone = self._clone()
+      clone.connection = connection
+      return clone
+    else:
+      return self._connection
 
   def filter(self, expression, value):
     clone = self._clone()
@@ -42,7 +53,7 @@ class Query(object):
       raise ValueError('Invalid expression: "%s"' % expression)
 
     # Build a composite filter AND'd together.
-    composite_filter = clone._query.filter.composite_filter
+    composite_filter = clone._pb.filter.composite_filter
     composite_filter.operator = datastore_pb.CompositeFilter.AND
 
     # Add the specific filter
@@ -51,35 +62,36 @@ class Query(object):
     property_filter.operator = operator
 
     # Set the value to filter on based on the type.
-    # TODO(jjg): Handle Key's and datetime objects.
-    # TODO(jjg): Factor this out somehow to use elsewhere.
-    filter_value = property_filter.value
-    if isinstance(value, bool):
-      filter_value.boolean_value = value
-    elif isinstance(value, basestring):
-      filter_value.string_value = value
-    elif isinstance(value, int):
-      filter_value.integer_value = value
-    elif isinstance(value, float):
-      filter_value.double_value = value
-
+    attr_name, pb_value = helpers.get_protobuf_attribute_and_value(value)
+    setattr(property_filter.value, attr_name, pb_value)
     return clone
 
   def kind(self, *kinds):
-    clone = self._clone()
-    for kind in kinds:
-      clone._query.kind.add().name = kind
-    return clone
+    # TODO: Do we want this to be additive?
+    #       If not, clear the _pb.kind attribute.
+    if kinds:
+      clone = self._clone()
+      for kind in kinds:
+        clone._pb.kind.add().name = kind
+      return clone
+    else:
+      return self._pb.kind
 
-  def limit(self, limit):
-    clone = self._clone()
-    clone._query.limit = limit
-    return clone
+  def limit(self, limit=None):
+    if limit:
+      clone = self._clone()
+      clone._pb.limit = limit
+      return clone
+    else:
+      return self._pb.limit
 
-  def namespace(self, namespace):
-    clone = self._clone()
-    clone._namespace = namespace
-    return clone
+  def namespace(self, namespace=None):
+    if namespace:
+      clone = self._clone()
+      clone._namespace = namespace
+      return clone
+    else:
+      return self._namespace
 
   def fetch(self, limit=None, connection=None):
     clone = self
@@ -91,5 +103,5 @@ class Query(object):
     if not connection:
       raise ValueError
 
-    response = connection._run_query(clone._query, namespace=clone._namespace)
+    response = connection._run_query(clone._pb, namespace=clone.namespace())
     return [Entity.from_protobuf(e.entity) for e in response.batch.entity_result]
