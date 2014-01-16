@@ -72,5 +72,5 @@ Go build cool stuff :)
 ## Hmm, that's not on the Google Cloud website...
 
 You might notice that the other tutorials are a bit different.
-This introduction is focused on you, on your home computer, with no interst
+This introduction is focused on you, on your home computer, with no interest
 at all in using Google Compute Engine.
