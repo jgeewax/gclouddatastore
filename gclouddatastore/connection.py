@@ -20,9 +20,11 @@ class Connection(object):
 
   @property
   def api_url(self):
-    return '{api_base}/datastore/{api_version}/datasets/{dataset_id}/'.format(
-        api_base=self.API_BASE_URL, api_version=self.API_VERSION,
-          dataset_id=self._dataset_id)
+    return ('{api_base}'
+            '/datastore/{api_version}'
+            '/datasets/{dataset_id}/').format(
+                api_base=self.API_BASE_URL, api_version=self.API_VERSION,
+                dataset_id=self._dataset_id)
 
   @property
   def http(self):
@@ -40,7 +42,6 @@ class Connection(object):
     headers, content = self.http.request(uri=self.api_url + method,
         method='POST', headers=headers, body=data)
 
-    # TODO(jjg): Check that nothing went wrong.
     if headers['status'] != '200':
       raise Exception('Request failed. Error was: %s' % content)
 
@@ -50,18 +51,19 @@ class Connection(object):
     response = self._request(method=method, data=request_pb.SerializeToString())
     return response_pb_cls.FromString(response)
 
-  def _run_query(self, query, namespace=None):
+  def query(self, *args, **kwargs):
+    kwargs['connection'] = self
+    return Query(*args, **kwargs)
+
+  def run_query(self, query, namespace=None):
     request = datastore_pb.RunQueryRequest()
 
     if namespace:
       request.partition_id.namespace = namespace
 
-    request.query.CopyFrom(query)
-    return self._rpc('runQuery', request, datastore_pb.RunQueryResponse)
-
-  def query(self, *args, **kwargs):
-    kwargs['connection'] = self
-    return Query(*args, **kwargs)
+    request.query.CopyFrom(query.to_protobuf())
+    response = self._rpc('runQuery', request, datastore_pb.RunQueryResponse)
+    return [Entity.from_protobuf(e.entity) for e in response.batch.entity_result]
 
   def get_entities(self, keys):
     lookup_request = datastore_pb.LookupRequest()

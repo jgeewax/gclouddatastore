@@ -29,6 +29,9 @@ class Query(object):
     clone._connection = self._connection  # Shallow copy the connection.
     return clone
 
+  def to_protobuf(self):
+    return self._pb
+
   def connection(self, connection=None):
     if connection:
       clone = self._clone()
@@ -99,9 +102,8 @@ class Query(object):
     if limit:
       clone = self.limit(limit)
 
-    connection = connection or clone._connection
+    connection = connection or clone.connection()
     if not connection:
       raise ValueError
 
-    response = connection._run_query(clone._pb, namespace=clone.namespace())
-    return [Entity.from_protobuf(e.entity) for e in response.batch.entity_result]
+    return connection.run_query(clone, namespace=clone.namespace())
