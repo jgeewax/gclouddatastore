@@ -1,14 +1,21 @@
 from datetime import datetime
 
-from gclouddatastore import helpers
 from gclouddatastore.key import Key
 
 
 class Entity(dict):
+  """
+  Entities are mutable and act like a subclass of a dictionary.
+  This means you could take an existing entity and change the key
+  to duplicate the object.
+  """
 
-  def __init__(self, key=None, connection=None):
-    self._connection = connection
-    self._key = key
+  def __init__(self, dataset, kind):
+    self._dataset = dataset
+    self._key = Key(dataset=dataset).kind(kind)
+
+  def dataset(self):
+    return self._dataset
 
   def key(self, key=None):
     if key:
@@ -17,9 +24,24 @@ class Entity(dict):
     else:
       return self._key
 
+  def kind(self):
+    if self.key():
+      return self.key().kind()
+
+  @classmethod
+  def from_key(cls, key, load_properties=True):
+    entity = cls(dataset=key.dataset(), kind=key.kind())
+    if load_properties:
+      entity = entity.reload()
+    return entity
+
   @classmethod
   def from_protobuf(cls, pb):
-    entity = cls(key=Key.from_protobuf(pb.key))
+    # This is here to avoid circular imports.
+    from gclouddatastore import helpers
+
+    key = Key.from_protobuf(pb.key)
+    entity = cls.from_key(key)
 
     for property_pb in pb.property:
       value = helpers.get_value_from_protobuf(property_pb)
@@ -31,19 +53,23 @@ class Entity(dict):
     """Reloads the contents of this entity from the datastore."""
 
     # Note that you must have a valid key, otherwise this makes no sense.
-    entity = self._connection.get_entities(self.key())
+    entity = self.dataset().connection().get_entities(self.key().to_protobuf())
+
     # TODO(jjg): Raise an error if something dumb happens.
     if entity:
       self.update(entity)
     return self
 
   def save(self):
-    key = self._connection.save_entity(self)
+    key = self.dataset().connection().save_entity(
+        dataset_id=self.dataset().id(), key_pb=self.key().to_protobuf(),
+        properties=dict(self))
     self.key(Key.from_protobuf(key))
     return self
 
   def delete(self):
-    response = self._connection.delete_entities([self])
+    response = self.dataset().connection().delete_entity(
+        dataset_id=self.dataset().id(), key_pb=self.key().to_protobuf())
 
   def __repr__(self):
     # TODO: Make sure that this makes sense.

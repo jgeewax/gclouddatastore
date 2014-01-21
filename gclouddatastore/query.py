@@ -2,8 +2,9 @@ import copy
 
 from gclouddatastore import datastore_v1_pb2 as datastore_pb
 from gclouddatastore import helpers
-from gclouddatastore.entity import Entity
 
+
+# TODO: Figure out how to properly handle namespaces.
 
 class Query(object):
 
@@ -15,9 +16,8 @@ class Query(object):
       '=': datastore_pb.PropertyFilter.EQUAL,
       }
 
-  def __init__(self, kinds=None, connection=None, namespace=None):
-    self._connection = connection
-    self._namespace = namespace
+  def __init__(self, kinds=None, dataset=None):
+    self._dataset = dataset
     self._pb = datastore_pb.Query()
 
     if kinds:
@@ -26,19 +26,11 @@ class Query(object):
   def _clone(self):
     # TODO(jjg): Double check that this makes sense...
     clone = copy.deepcopy(self)
-    clone._connection = self._connection  # Shallow copy the connection.
+    clone._dataset = self._dataset  # Shallow copy the dataset.
     return clone
 
   def to_protobuf(self):
     return self._pb
-
-  def connection(self, connection=None):
-    if connection:
-      clone = self._clone()
-      clone.connection = connection
-      return clone
-    else:
-      return self._connection
 
   def filter(self, expression, value):
     clone = self._clone()
@@ -88,22 +80,19 @@ class Query(object):
     else:
       return self._pb.limit
 
-  def namespace(self, namespace=None):
-    if namespace:
+  def dataset(self, dataset=None):
+    if dataset:
       clone = self._clone()
-      clone._namespace = namespace
+      clone._dataset = dataset
       return clone
     else:
-      return self._namespace
+      return self._dataset
 
-  def fetch(self, limit=None, connection=None):
+  def fetch(self, limit=None):
     clone = self
 
     if limit:
       clone = self.limit(limit)
 
-    connection = connection or clone.connection()
-    if not connection:
-      raise ValueError
-
-    return connection.run_query(clone, namespace=clone.namespace())
+    return self.dataset().connection().run_query(
+        query_pb=clone.to_protobuf(), dataset_id=self.dataset().id())

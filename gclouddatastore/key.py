@@ -2,12 +2,16 @@ import copy
 from itertools import izip
 
 from gclouddatastore import datastore_v1_pb2 as datastore_pb
+from gclouddatastore.dataset import Dataset
 
 
 class Key(object):
+  """
+  An immutable representation of a datastore Key.
+  """
 
-  def __init__(self, dataset_id=None, namespace=None, path=None):
-    self._dataset_id = dataset_id
+  def __init__(self, dataset=None, namespace=None, path=None):
+    self._dataset = dataset
     self._namespace = namespace
     self._path = path or [{'kind': ''}]
 
@@ -16,8 +20,6 @@ class Key(object):
 
   @classmethod
   def from_protobuf(cls, pb):
-    key = cls(dataset_id=pb.partition_id.dataset_id)
-
     path = []
     for element in pb.path_element:
       element_dict = {'kind': element.kind}
@@ -30,16 +32,17 @@ class Key(object):
 
       path.append(element_dict)
 
-    return cls(path=path, dataset_id=pb.partition_id.dataset_id)
+    dataset = Dataset(id=pb.partition_id.dataset_id)
+    return cls(path=path, dataset=dataset)
 
   def to_protobuf(self):
     key = datastore_pb.Key()
 
     # Apparently 's~' is a prefix for High-Replication and is necessary here.
-    dataset_id = self.dataset_id()
+    dataset_id = self.dataset().id()
     if dataset_id:
       if not dataset_id.startswith('s~'):
-        dataset_id = 's~' + self.dataset_id()
+        dataset_id = 's~' + dataset_id
 
       key.partition_id.dataset_id = dataset_id
 
@@ -74,13 +77,21 @@ class Key(object):
   def is_partial(self):
     return (self.id_or_name() is None)
 
-  def dataset_id(self, dataset_id=None):
-    if dataset_id:
+  def dataset(self, dataset=None):
+    if dataset:
       clone = self._clone()
-      clone._dataset_id = dataset_id
+      clone._dataset = dataset
       return clone
     else:
-      return self._dataset_id
+      return self._dataset
+
+  def namespace(self, namespace=None):
+    if namespace:
+      clone = self._clone()
+      clone._namespace = namespace
+      return clone
+    else:
+      return self._namespace
 
   def path(self, path=None):
     if path:
