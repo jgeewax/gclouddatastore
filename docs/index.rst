@@ -33,7 +33,7 @@ gclouddatastore Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`entity` Module
+Entities
 --------------------
 
 .. automodule:: gclouddatastore.entity

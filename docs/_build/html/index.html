@@ -201,54 +201,172 @@ in method arguments, however should be capable of returning advanced types.</p>
 
 </div>
 <div class="section" id="module-gclouddatastore.entity">
-<span id="entity-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">entity</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.entity" title="Permalink to this headline">¶</a></h2>
+<span id="entities"></span><h2>Entities<a class="headerlink" href="#module-gclouddatastore.entity" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="gclouddatastore.entity.Entity">
-<em class="property">class </em><tt class="descclassname">gclouddatastore.entity.</tt><tt class="descname">Entity</tt><big>(</big><em>dataset</em>, <em>kind</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">gclouddatastore.entity.</tt><tt class="descname">Entity</tt><big>(</big><em>dataset=None</em>, <em>kind=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataset</strong> (<a class="reference internal" href="#gclouddatastore.dataset.Dataset" title="gclouddatastore.dataset.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.dataset.Dataset</span></tt></a>) &#8211; The dataset in which this entity belongs.</li>
+<li><strong>kind</strong> (<em>string</em>) &#8211; The kind of entity this is, akin to a table name in a
+relational database.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Entities are mutable and act like a subclass of a dictionary.
 This means you could take an existing entity and change the key
 to duplicate the object.</p>
+<p>This can be used on its own, however it is likely easier to use
+the shortcut methods provided by <a class="reference internal" href="#gclouddatastore.dataset.Dataset" title="gclouddatastore.dataset.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.dataset.Dataset</span></tt></a>
+such as:</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="#gclouddatastore.dataset.Dataset.entity" title="gclouddatastore.dataset.Dataset.entity"><tt class="xref py py-func docutils literal"><span class="pre">gclouddatastore.dataset.Dataset.entity()</span></tt></a> to create a new entity.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">entity</span><span class="p">(</span><span class="s">&#39;MyEntityKind&#39;</span><span class="p">)</span>
+<span class="go">&lt;Entity[{&#39;kind&#39;: &#39;MyEntityKind&#39;}] {}&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference internal" href="#gclouddatastore.dataset.Dataset.get_entity" title="gclouddatastore.dataset.Dataset.get_entity"><tt class="xref py py-func docutils literal"><span class="pre">gclouddatastore.dataset.Dataset.get_entity()</span></tt></a> to retrive an existing entity.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">get_entity</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="go">&lt;Entity[{&#39;kind&#39;: &#39;EntityKind&#39;, id: 1234}] {&#39;property&#39;: &#39;value&#39;}&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>You can the set values on the entity just like you would on any other dictionary.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">entity</span><span class="p">[</span><span class="s">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entity</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;JJ&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entity</span>
+<span class="go">&lt;Entity[{&#39;kind&#39;: &#39;EntityKind&#39;, id: 1234}] {&#39;age&#39;: 20, &#39;name&#39;: &#39;JJ&#39;}&gt;</span>
+</pre></div>
+</div>
+<p>And you can cast an entity to a regular Python dictionary with the <cite>dict</cite> builtin:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">dict</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+<span class="go">{&#39;age&#39;: 20, &#39;name&#39;: &#39;JJ&#39;}</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="gclouddatastore.entity.Entity.dataset">
 <tt class="descname">dataset</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.dataset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the <a class="reference internal" href="#gclouddatastore.dataset.Dataset" title="gclouddatastore.dataset.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.dataset.Dataset</span></tt></a> in which this entity belonds.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is based on the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a> set on the entity.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="gclouddatastore.entity.Entity.delete">
 <tt class="descname">delete</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.delete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Delete the entity in the Cloud Datastore.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is based entirely off of the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a> set
+on the entity. Whatever is stored remotely using the key on the entity
+will be deleted.</p>
+</div>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="gclouddatastore.entity.Entity.from_key">
 <em class="property">classmethod </em><tt class="descname">from_key</tt><big>(</big><em>key</em>, <em>load_properties=True</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.from_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.from_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Factory method for creating an entity based on the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> (<a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a>) &#8211; The key for the entity.</li>
+<li><strong>load_properties</strong> (<em>boolean</em>) &#8211; Set this to True if you want to load the entity&#8217;s
+properties from the datastore.
+Set to False if you want the entity to start off
+empty.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The <a class="reference internal" href="#gclouddatastore.entity.Entity" title="gclouddatastore.entity.Entity"><tt class="xref py py-class docutils literal"><span class="pre">Entity</span></tt></a> derived from the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="gclouddatastore.entity.Entity.from_protobuf">
 <em class="property">classmethod </em><tt class="descname">from_protobuf</tt><big>(</big><em>pb</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.from_protobuf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.from_protobuf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Factory method for creating an entity based on a protobuf.</p>
+<p>The protobuf should be one returned from the Cloud Datastore Protobuf API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.datastore_v1_pb2.Entity</span></tt>) &#8211; The Protobuf representing the entity.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The <a class="reference internal" href="#gclouddatastore.entity.Entity" title="gclouddatastore.entity.Entity"><tt class="xref py py-class docutils literal"><span class="pre">Entity</span></tt></a> derived from the <tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.datastore_v1_pb2.Entity</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gclouddatastore.entity.Entity.key">
 <tt class="descname">key</tt><big>(</big><em>key=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get or set the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a> on the current entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<tt class="xref py py-class docutils literal"><span class="pre">glcouddatastore.key.Key</span></tt>) &#8211; The key you want to set on the entity.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Either the current key or the <a class="reference internal" href="#gclouddatastore.entity.Entity" title="gclouddatastore.entity.Entity"><tt class="xref py py-class docutils literal"><span class="pre">Entity</span></tt></a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">entity</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">my_other_key</span><span class="p">)</span>  <span class="c"># This returns the original entity.</span>
+<span class="go">&lt;Entity[{&#39;kind&#39;: &#39;OtherKeyKind&#39;, &#39;id&#39;: 1234}] {&#39;property&#39;: &#39;value&#39;}&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entity</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>  <span class="c"># This returns the key.</span>
+<span class="go">&lt;Key[{&#39;kind&#39;: &#39;OtherKeyKind&#39;, &#39;id&#39;: 1234}]&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="gclouddatastore.entity.Entity.kind">
 <tt class="descname">kind</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.kind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.kind" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the kind of the current entity.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This relies entirely on the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a> set on the
+entity.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="gclouddatastore.entity.Entity.reload">
 <tt class="descname">reload</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.reload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reloads the contents of this entity from the datastore.</p>
+<p>This method takes the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a>, loads all
+properties from the Cloud Datastore, and sets the updated properties on
+the current object.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This will override any existing properties if a different value exists
+remotely, however it will <em>not</em> override any properties that exist
+only locally.</p>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt id="gclouddatastore.entity.Entity.save">
 <tt class="descname">save</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Save the entity in the Cloud Datastore.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -397,7 +515,7 @@ to duplicate the object.</p>
 <li><a class="reference internal" href="#module-gclouddatastore.connection"><tt class="docutils literal"><span class="pre">connection</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.credentials"><tt class="docutils literal"><span class="pre">credentials</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.dataset"><tt class="docutils literal"><span class="pre">dataset</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-gclouddatastore.entity"><tt class="docutils literal"><span class="pre">entity</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.entity">Entities</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.helpers"><tt class="docutils literal"><span class="pre">helpers</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.key"><tt class="docutils literal"><span class="pre">key</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.query"><tt class="docutils literal"><span class="pre">query</span></tt> Module</a></li>
