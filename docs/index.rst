@@ -1,5 +1,5 @@
 Google Cloud Datastore (Python API)
-=======================
+===================================
 
 :mod:`gclouddatastore` Package
 ------------------------------
