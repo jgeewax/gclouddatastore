@@ -1,22 +1,66 @@
-.. gclouddatastore documentation master file, created by
-   sphinx-quickstart on Tue Jan 21 22:24:47 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+gclouddatastore Package
+=======================
 
-Welcome to gclouddatastore's documentation!
-===========================================
+:mod:`gclouddatastore` Package
+------------------------------
 
-Contents:
+.. automodule:: gclouddatastore.__init__
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-.. toctree::
-   :maxdepth: 2
+:mod:`connection` Module
+------------------------
 
+.. automodule:: gclouddatastore.connection
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
+:mod:`credentials` Module
+-------------------------
 
-Indices and tables
-==================
+.. automodule:: gclouddatastore.credentials
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+:mod:`dataset` Module
+---------------------
 
+.. automodule:: gclouddatastore.dataset
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`entity` Module
+--------------------
+
+.. automodule:: gclouddatastore.entity
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`helpers` Module
+---------------------
+
+.. automodule:: gclouddatastore.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`key` Module
+-----------------
+
+.. automodule:: gclouddatastore.key
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`query` Module
+-------------------
+
+.. automodule:: gclouddatastore.query
+    :members:
+    :undoc-members:
+    :show-inheritance:

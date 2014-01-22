@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to gclouddatastore’s documentation! &mdash; gclouddatastore 0.1 documentation</title>
+    <title>gclouddatastore Package &mdash; gclouddatastore 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -34,6 +34,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li><a href="#">gclouddatastore 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -43,21 +46,342 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="welcome-to-gclouddatastore-s-documentation">
-<h1>Welcome to gclouddatastore&#8217;s documentation!<a class="headerlink" href="#welcome-to-gclouddatastore-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
+  <div class="section" id="gclouddatastore-package">
+<h1>gclouddatastore Package<a class="headerlink" href="#gclouddatastore-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">gclouddatastore</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-gclouddatastore.__init__"></span><dl class="function">
+<dt id="gclouddatastore.__init__.get_connection">
+<tt class="descclassname">gclouddatastore.__init__.</tt><tt class="descname">get_connection</tt><big>(</big><em>client_email</em>, <em>private_key_path</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/__init__.html#get_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.__init__.get_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="gclouddatastore.__init__.get_dataset">
+<tt class="descclassname">gclouddatastore.__init__.</tt><tt class="descname">get_dataset</tt><big>(</big><em>dataset_id</em>, <em>client_email</em>, <em>private_key_path</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/__init__.html#get_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.__init__.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
+<div class="section" id="module-gclouddatastore.connection">
+<span id="connection-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connection</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.connection" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gclouddatastore.connection.Connection">
+<em class="property">class </em><tt class="descclassname">gclouddatastore.connection.</tt><tt class="descname">Connection</tt><big>(</big><em>credentials=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A connection Google Cloud Datastore via the Protobuf API.</p>
+<p>This class should understand only the basic types (and protobufs)
+in method arguments, however should be capable of returning advanced types.</p>
+<dl class="attribute">
+<dt id="gclouddatastore.connection.Connection.API_BASE_URL">
+<tt class="descname">API_BASE_URL</tt><em class="property"> = 'https://www.googleapis.com'</em><a class="headerlink" href="#gclouddatastore.connection.Connection.API_BASE_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gclouddatastore.connection.Connection.API_VERSION">
+<tt class="descname">API_VERSION</tt><em class="property"> = 'v1beta2'</em><a class="headerlink" href="#gclouddatastore.connection.Connection.API_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.connection.Connection.build_api_url">
+<tt class="descname">build_api_url</tt><big>(</big><em>dataset_id</em>, <em>method</em>, <em>base_url=None</em>, <em>api_version=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.build_api_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.build_api_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.connection.Connection.dataset">
+<tt class="descname">dataset</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory method for Dataset objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.connection.Connection.delete_entities">
+<tt class="descname">delete_entities</tt><big>(</big><em>dataset_id</em>, <em>key_pbs</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.delete_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.delete_entities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.connection.Connection.delete_entity">
+<tt class="descname">delete_entity</tt><big>(</big><em>dataset_id</em>, <em>key_pb</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.delete_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.delete_entity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.connection.Connection.get_entities">
+<tt class="descname">get_entities</tt><big>(</big><em>dataset_id</em>, <em>key_pbs</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.get_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.get_entities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.connection.Connection.get_entity">
+<tt class="descname">get_entity</tt><big>(</big><em>dataset_id</em>, <em>key_pb</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.get_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.get_entity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gclouddatastore.connection.Connection.http">
+<tt class="descname">http</tt><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.http"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.http" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.connection.Connection.run_query">
+<tt class="descname">run_query</tt><big>(</big><em>dataset_id</em>, <em>query_pb</em>, <em>namespace=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.run_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.run_query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.connection.Connection.save_entity">
+<tt class="descname">save_entity</tt><big>(</big><em>dataset_id</em>, <em>key_pb</em>, <em>properties</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/connection.html#Connection.save_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.connection.Connection.save_entity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
-</ul>
+<div class="section" id="module-gclouddatastore.credentials">
+<span id="credentials-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">credentials</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.credentials" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gclouddatastore.credentials.Credentials">
+<em class="property">class </em><tt class="descclassname">gclouddatastore.credentials.</tt><tt class="descname">Credentials</tt><a class="reference internal" href="_modules/gclouddatastore/credentials.html#Credentials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.credentials.Credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="gclouddatastore.credentials.Credentials.SCOPE">
+<tt class="descname">SCOPE</tt><em class="property"> = 'https://www.googleapis.com/auth/datastore https://www.googleapis.com/auth/userinfo.email'</em><a class="headerlink" href="#gclouddatastore.credentials.Credentials.SCOPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="gclouddatastore.credentials.Credentials.get_for_service_account">
+<em class="property">classmethod </em><tt class="descname">get_for_service_account</tt><big>(</big><em>client_email</em>, <em>private_key_path</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/credentials.html#Credentials.get_for_service_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.credentials.Credentials.get_for_service_account" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gclouddatastore.dataset">
+<span id="dataset-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dataset</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.dataset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gclouddatastore.dataset.Dataset">
+<em class="property">class </em><tt class="descclassname">gclouddatastore.dataset.</tt><tt class="descname">Dataset</tt><big>(</big><em>id</em>, <em>connection=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="gclouddatastore.dataset.Dataset.connection">
+<tt class="descname">connection</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset.connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset.connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.dataset.Dataset.entity">
+<tt class="descname">entity</tt><big>(</big><em>kind</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset.entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset.entity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.dataset.Dataset.get_entities">
+<tt class="descname">get_entities</tt><big>(</big><em>keys</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset.get_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset.get_entities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.dataset.Dataset.get_entity">
+<tt class="descname">get_entity</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset.get_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset.get_entity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves an entity from the dataset, along with all of its attributes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>item_name</strong> &#8211; The name of the item to retrieve.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gclouddatastore.entity.Entity" title="gclouddatastore.entity.Entity"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.entity.Entity</span></tt></a> or <tt class="docutils literal"><span class="pre">None</span></tt></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The requested entity, or <tt class="docutils literal"><span class="pre">None</span></tt> if there was no match found.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.dataset.Dataset.id">
+<tt class="descname">id</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset.id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.dataset.Dataset.query">
+<tt class="descname">query</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset.query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gclouddatastore.entity">
+<span id="entity-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">entity</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.entity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gclouddatastore.entity.Entity">
+<em class="property">class </em><tt class="descclassname">gclouddatastore.entity.</tt><tt class="descname">Entity</tt><big>(</big><em>dataset</em>, <em>kind</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></p>
+<p>Entities are mutable and act like a subclass of a dictionary.
+This means you could take an existing entity and change the key
+to duplicate the object.</p>
+<dl class="method">
+<dt id="gclouddatastore.entity.Entity.dataset">
+<tt class="descname">dataset</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.entity.Entity.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="gclouddatastore.entity.Entity.from_key">
+<em class="property">classmethod </em><tt class="descname">from_key</tt><big>(</big><em>key</em>, <em>load_properties=True</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.from_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.from_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="gclouddatastore.entity.Entity.from_protobuf">
+<em class="property">classmethod </em><tt class="descname">from_protobuf</tt><big>(</big><em>pb</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.from_protobuf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.from_protobuf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.entity.Entity.key">
+<tt class="descname">key</tt><big>(</big><em>key=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.entity.Entity.kind">
+<tt class="descname">kind</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.kind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.entity.Entity.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reloads the contents of this entity from the datastore.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.entity.Entity.save">
+<tt class="descname">save</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/entity.html#Entity.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.entity.Entity.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gclouddatastore.helpers">
+<span id="helpers-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">helpers</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.helpers" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="gclouddatastore.helpers.get_protobuf_attribute_and_value">
+<tt class="descclassname">gclouddatastore.helpers.</tt><tt class="descname">get_protobuf_attribute_and_value</tt><big>(</big><em>val</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/helpers.html#get_protobuf_attribute_and_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.helpers.get_protobuf_attribute_and_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a value, return the protobuf attribute name and proper value.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gclouddatastore.helpers.get_value_from_protobuf">
+<tt class="descclassname">gclouddatastore.helpers.</tt><tt class="descname">get_value_from_protobuf</tt><big>(</big><em>pb</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/helpers.html#get_value_from_protobuf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.helpers.get_value_from_protobuf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a protobuf for a Property, get the value we care about.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gclouddatastore.key">
+<span id="key-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">key</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.key" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gclouddatastore.key.Key">
+<em class="property">class </em><tt class="descclassname">gclouddatastore.key.</tt><tt class="descname">Key</tt><big>(</big><em>dataset=None</em>, <em>namespace=None</em>, <em>path=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>An immutable representation of a datastore Key.</p>
+<dl class="method">
+<dt id="gclouddatastore.key.Key.dataset">
+<tt class="descname">dataset</tt><big>(</big><em>dataset=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="gclouddatastore.key.Key.from_path">
+<em class="property">classmethod </em><tt class="descname">from_path</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.from_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.from_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="gclouddatastore.key.Key.from_protobuf">
+<em class="property">classmethod </em><tt class="descname">from_protobuf</tt><big>(</big><em>pb</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.from_protobuf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.from_protobuf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.id">
+<tt class="descname">id</tt><big>(</big><em>id=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.id_or_name">
+<tt class="descname">id_or_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.id_or_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.id_or_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.is_partial">
+<tt class="descname">is_partial</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.is_partial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.is_partial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.kind">
+<tt class="descname">kind</tt><big>(</big><em>kind=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.kind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.name">
+<tt class="descname">name</tt><big>(</big><em>name=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.namespace">
+<tt class="descname">namespace</tt><big>(</big><em>namespace=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.namespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.namespace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.parent">
+<tt class="descname">parent</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.path">
+<tt class="descname">path</tt><big>(</big><em>path=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.key.Key.to_protobuf">
+<tt class="descname">to_protobuf</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/key.html#Key.to_protobuf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.key.Key.to_protobuf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gclouddatastore.query">
+<span id="query-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">query</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.query" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gclouddatastore.query.Query">
+<em class="property">class </em><tt class="descclassname">gclouddatastore.query.</tt><tt class="descname">Query</tt><big>(</big><em>kinds=None</em>, <em>dataset=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="gclouddatastore.query.Query.OPERATORS">
+<tt class="descname">OPERATORS</tt><em class="property"> = {'=': 5, '&lt;=': 2, '&gt;=': 4, '&lt;': 1, '&gt;': 3}</em><a class="headerlink" href="#gclouddatastore.query.Query.OPERATORS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.query.Query.dataset">
+<tt class="descname">dataset</tt><big>(</big><em>dataset=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query.dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.query.Query.fetch">
+<tt class="descname">fetch</tt><big>(</big><em>limit=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query.fetch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.query.Query.filter">
+<tt class="descname">filter</tt><big>(</big><em>expression</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query.filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.query.Query.kind">
+<tt class="descname">kind</tt><big>(</big><em>*kinds</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query.kind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.query.Query.limit">
+<tt class="descname">limit</tt><big>(</big><em>limit=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query.limit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query.limit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gclouddatastore.query.Query.to_protobuf">
+<tt class="descname">to_protobuf</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query.to_protobuf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query.to_protobuf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -68,10 +392,17 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to gclouddatastore&#8217;s documentation!</a><ul>
+<li><a class="reference internal" href="#">gclouddatastore Package</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">gclouddatastore</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.connection"><tt class="docutils literal"><span class="pre">connection</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.credentials"><tt class="docutils literal"><span class="pre">credentials</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.dataset"><tt class="docutils literal"><span class="pre">dataset</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.entity"><tt class="docutils literal"><span class="pre">entity</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.helpers"><tt class="docutils literal"><span class="pre">helpers</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.key"><tt class="docutils literal"><span class="pre">key</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.query"><tt class="docutils literal"><span class="pre">query</span></tt> Module</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
   <h3>This Page</h3>
@@ -102,6 +433,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li><a href="#">gclouddatastore 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>

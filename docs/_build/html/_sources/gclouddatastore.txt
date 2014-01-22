@@ -33,6 +33,14 @@ gclouddatastore Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`datastore_v1_pb2` Module
+------------------------------
+
+.. automodule:: gclouddatastore.datastore_v1_pb2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`entity` Module
 --------------------
 
@@ -64,3 +72,28 @@ gclouddatastore Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+:mod:`test_dataset` Module
+--------------------------
+
+.. automodule:: gclouddatastore.test_dataset
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`test_entity` Module
+-------------------------
+
+.. automodule:: gclouddatastore.test_entity
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`test_key` Module
+----------------------
+
+.. automodule:: gclouddatastore.test_key
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
