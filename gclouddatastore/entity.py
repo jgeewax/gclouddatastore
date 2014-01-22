@@ -57,6 +57,9 @@ class Entity(dict):
 
     .. note::
       This is based on the :class:`gclouddatastore.key.Key` set on the entity.
+      That means that if you have no key set, the dataset might be `None`.
+      It also means that if you change the key on the entity, this will refer
+      to that key's dataset.
     """
     if self.key():
       return self.key().dataset()

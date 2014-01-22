@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>gclouddatastore Package &mdash; gclouddatastore 0.1 documentation</title>
+    <title>Google Cloud Datastore (Python API) &mdash; gclouddatastore 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -46,11 +46,11 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="gclouddatastore-package">
-<h1>gclouddatastore Package<a class="headerlink" href="#gclouddatastore-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">gclouddatastore</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-gclouddatastore.__init__"></span><dl class="function">
+  <div class="section" id="google-cloud-datastore-python-api">
+<h1>Google Cloud Datastore (Python API)<a class="headerlink" href="#google-cloud-datastore-python-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-gclouddatastore.__init__">
+<span id="gclouddatastore-package"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">gclouddatastore</span></tt> Package<a class="headerlink" href="#module-gclouddatastore.__init__" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
 <dt id="gclouddatastore.__init__.get_connection">
 <tt class="descclassname">gclouddatastore.__init__.</tt><tt class="descname">get_connection</tt><big>(</big><em>client_email</em>, <em>private_key_path</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/__init__.html#get_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.__init__.get_connection" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -130,20 +130,47 @@ in method arguments, however should be capable of returning advanced types.</p>
 
 </div>
 <div class="section" id="module-gclouddatastore.credentials">
-<span id="credentials-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">credentials</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.credentials" title="Permalink to this headline">¶</a></h2>
+<span id="credentials"></span><h2>Credentials<a class="headerlink" href="#module-gclouddatastore.credentials" title="Permalink to this headline">¶</a></h2>
+<p>A simple wrapper around the OAuth2 credentials library.</p>
 <dl class="class">
 <dt id="gclouddatastore.credentials.Credentials">
 <em class="property">class </em><tt class="descclassname">gclouddatastore.credentials.</tt><tt class="descname">Credentials</tt><a class="reference internal" href="_modules/gclouddatastore/credentials.html#Credentials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.credentials.Credentials" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>An object used to simplify the OAuth2 credentials library.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You should not need to use this class directly.
+Instead, use the helper methods provided in
+<a class="reference internal" href="#gclouddatastore.__init__.get_connection" title="gclouddatastore.__init__.get_connection"><tt class="xref py py-func docutils literal"><span class="pre">gclouddatastore.__init__.get_connection()</span></tt></a>
+and
+<a class="reference internal" href="#gclouddatastore.__init__.get_dataset" title="gclouddatastore.__init__.get_dataset"><tt class="xref py py-func docutils literal"><span class="pre">gclouddatastore.__init__.get_dataset()</span></tt></a>
+which use this class under the hood.</p>
+</div>
 <dl class="attribute">
 <dt id="gclouddatastore.credentials.Credentials.SCOPE">
 <tt class="descname">SCOPE</tt><em class="property"> = 'https://www.googleapis.com/auth/datastore https://www.googleapis.com/auth/userinfo.email'</em><a class="headerlink" href="#gclouddatastore.credentials.Credentials.SCOPE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The scope required for authenticating as a Cloud Datastore consumer.</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="gclouddatastore.credentials.Credentials.get_for_service_account">
 <em class="property">classmethod </em><tt class="descname">get_for_service_account</tt><big>(</big><em>client_email</em>, <em>private_key_path</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/credentials.html#Credentials.get_for_service_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.credentials.Credentials.get_for_service_account" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Gets the credentials for a service account.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>client_email</strong> (<em>string</em>) &#8211; The e-mail attached to the service account.</li>
+<li><strong>private_key_path</strong> (<em>string</em>) &#8211; The path to a private key file (this file was
+given to you when you created the service
+account).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -257,7 +284,10 @@ such as:</p>
 <dd><p>Get the <a class="reference internal" href="#gclouddatastore.dataset.Dataset" title="gclouddatastore.dataset.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.dataset.Dataset</span></tt></a> in which this entity belonds.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This is based on the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a> set on the entity.</p>
+<p class="last">This is based on the <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a> set on the entity.
+That means that if you have no key set, the dataset might be <cite>None</cite>.
+It also means that if you change the key on the entity, this will refer
+to that key&#8217;s dataset.</p>
 </div>
 </dd></dl>
 
@@ -368,21 +398,6 @@ only locally.</p>
 <dd><p>Save the entity in the Cloud Datastore.</p>
 </dd></dl>
 
-</dd></dl>
-
-</div>
-<div class="section" id="module-gclouddatastore.helpers">
-<span id="helpers-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">helpers</span></tt> Module<a class="headerlink" href="#module-gclouddatastore.helpers" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="gclouddatastore.helpers.get_protobuf_attribute_and_value">
-<tt class="descclassname">gclouddatastore.helpers.</tt><tt class="descname">get_protobuf_attribute_and_value</tt><big>(</big><em>val</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/helpers.html#get_protobuf_attribute_and_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.helpers.get_protobuf_attribute_and_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a value, return the protobuf attribute name and proper value.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="gclouddatastore.helpers.get_value_from_protobuf">
-<tt class="descclassname">gclouddatastore.helpers.</tt><tt class="descname">get_value_from_protobuf</tt><big>(</big><em>pb</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/helpers.html#get_value_from_protobuf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.helpers.get_value_from_protobuf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a protobuf for a Property, get the value we care about.</p>
 </dd></dl>
 
 </div>
@@ -500,6 +515,65 @@ only locally.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-gclouddatastore.helpers">
+<span id="helpers"></span><h2>Helpers<a class="headerlink" href="#module-gclouddatastore.helpers" title="Permalink to this headline">¶</a></h2>
+<p>Helper methods for dealing with Cloud Datastore&#8217;s Protobuf API.</p>
+<dl class="function">
+<dt id="gclouddatastore.helpers.get_protobuf_attribute_and_value">
+<tt class="descclassname">gclouddatastore.helpers.</tt><tt class="descname">get_protobuf_attribute_and_value</tt><big>(</big><em>val</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/helpers.html#get_protobuf_attribute_and_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.helpers.get_protobuf_attribute_and_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a value, return the protobuf attribute name and proper value.</p>
+<p>The Protobuf API uses different attribute names
+based on value types rather than inferring the type.
+This method simply determines the proper attribute name
+based on the type of the value provided
+and returns the attribute name
+as well as a properly formatted value.</p>
+<p>Certain value types need to be coerced into a different type (such as a
+<cite>datetime.datetime</cite> into an integer timestamp, or a
+<cite>gclouddatastore.key.Key</cite> into a Protobuf representation.
+This method handles that for you.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">get_protobuf_attribute_and_value</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+<span class="go">(&#39;integer_value&#39;, 1234)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_protobuf_attribute_and_value</span><span class="p">(</span><span class="s">&#39;my_string&#39;</span><span class="p">)</span>
+<span class="go">(&#39;string_value&#39;, &#39;my_string&#39;)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>val</strong> (<cite>datetime.datetime</cite>, <a class="reference internal" href="#gclouddatastore.key.Key" title="gclouddatastore.key.Key"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.key.Key</span></tt></a>,
+bool, float, integer, string) &#8211; The value to be scrutinized.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A tuple of the attribute name and proper value type.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gclouddatastore.helpers.get_value_from_protobuf">
+<tt class="descclassname">gclouddatastore.helpers.</tt><tt class="descname">get_value_from_protobuf</tt><big>(</big><em>pb</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/helpers.html#get_value_from_protobuf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.helpers.get_value_from_protobuf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a protobuf for a Property, get the correct value.</p>
+<p>The Cloud Datastore Protobuf API returns a Property Protobuf
+which has one value set and the rest blank.
+This method retrieves the the one value provided.</p>
+<p>Some work is done to coerce the return value into a more useful type
+(particularly in the case of a timestamp value, or a key value).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pb</strong> (<tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.datastore_v1_pb2.Property</span></tt>) &#8211; The Property Protobuf.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The value provided by the Protobuf.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -510,15 +584,15 @@ only locally.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">gclouddatastore Package</a><ul>
-<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">gclouddatastore</span></tt> Package</a></li>
+<li><a class="reference internal" href="#">Google Cloud Datastore (Python API)</a><ul>
+<li><a class="reference internal" href="#module-gclouddatastore.__init__"><tt class="docutils literal"><span class="pre">gclouddatastore</span></tt> Package</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.connection"><tt class="docutils literal"><span class="pre">connection</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-gclouddatastore.credentials"><tt class="docutils literal"><span class="pre">credentials</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.credentials">Credentials</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.dataset"><tt class="docutils literal"><span class="pre">dataset</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.entity">Entities</a></li>
-<li><a class="reference internal" href="#module-gclouddatastore.helpers"><tt class="docutils literal"><span class="pre">helpers</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.key"><tt class="docutils literal"><span class="pre">key</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-gclouddatastore.query"><tt class="docutils literal"><span class="pre">query</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-gclouddatastore.helpers">Helpers</a></li>
 </ul>
 </li>
 </ul>
