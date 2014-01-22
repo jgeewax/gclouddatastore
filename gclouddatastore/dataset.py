@@ -32,5 +32,13 @@ class Dataset(object):
     return self.get_entities([key])
 
   def get_entities(self, keys):
-    return self.connection().get_entities(dataset_id=self.id(),
+    # This import is here to avoid circular references.
+    from gclouddatastore.entity import Entity
+
+    entity_pbs = self.connection().lookup(dataset_id=self.id(),
         key_pbs=[k.to_protobuf() for k in keys])
+
+    entities = []
+    for entity_pb in entity_pbs:
+      entities.append(Entity.from_protobuf(entity_pb, dataset=self))
+    return entities

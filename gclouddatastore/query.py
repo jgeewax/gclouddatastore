@@ -2,6 +2,7 @@ import copy
 
 from gclouddatastore import datastore_v1_pb2 as datastore_pb
 from gclouddatastore import helpers
+from gclouddatastore.entity import Entity
 
 
 # TODO: Figure out how to properly handle namespaces.
@@ -94,5 +95,7 @@ class Query(object):
     if limit:
       clone = self.limit(limit)
 
-    return self.dataset().connection().run_query(
+    entity_pbs = self.dataset().connection().run_query(
         query_pb=clone.to_protobuf(), dataset_id=self.dataset().id())
+
+    return [Entity.from_protobuf(entity) for entity in entity_pbs]

@@ -16,10 +16,18 @@ class Key(object):
     self._path = path or [{'kind': ''}]
 
   def _clone(self):
-    return copy.deepcopy(self)
+    """Duplicates the Key.
+
+    We make a shallow copy of the :class:`gclouddatastore.dataset.Dataset`
+    because it holds a reference an authenticated connection,
+    which we don't want to lose.
+    """
+    clone = copy.deepcopy(self)
+    clone._dataset = self._dataset  # Make a shallow copy of the Dataset.
+    return clone
 
   @classmethod
-  def from_protobuf(cls, pb):
+  def from_protobuf(cls, pb, dataset=None):
     path = []
     for element in pb.path_element:
       element_dict = {'kind': element.kind}
@@ -32,7 +40,9 @@ class Key(object):
 
       path.append(element_dict)
 
-    dataset = Dataset(id=pb.partition_id.dataset_id)
+    if not dataset:
+      dataset = Dataset(id=pb.partition_id.dataset_id)
+
     return cls(path=path, dataset=dataset)
 
   def to_protobuf(self):

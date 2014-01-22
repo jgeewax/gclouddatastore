@@ -94,28 +94,19 @@ class Entity(dict):
       return self.key().kind()
 
   @classmethod
-  def from_key(cls, key, load_properties=True):
+  def from_key(cls, key):
     """Factory method for creating an entity based on the :class:`gclouddatastore.key.Key`.
 
     :type key: :class:`gclouddatastore.key.Key`
     :param key: The key for the entity.
 
-    :type load_properties: boolean
-    :param load_properties: Set this to True if you want to load the entity's
-                            properties from the datastore.
-                            Set to False if you want the entity to start off
-                            empty.
-
     :returns: The :class:`Entity` derived from the :class:`gclouddatastore.key.Key`.
     """
 
-    entity = cls().key(key)
-    if load_properties:
-      entity = entity.reload()
-    return entity
+    return cls().key(key)
 
   @classmethod
-  def from_protobuf(cls, pb):
+  def from_protobuf(cls, pb, dataset=None):
     """Factory method for creating an entity based on a protobuf.
 
     The protobuf should be one returned from the Cloud Datastore Protobuf API.
@@ -129,7 +120,7 @@ class Entity(dict):
     # This is here to avoid circular imports.
     from gclouddatastore import helpers
 
-    key = Key.from_protobuf(pb.key)
+    key = Key.from_protobuf(pb.key, dataset=dataset)
     entity = cls.from_key(key)
 
     for property_pb in pb.property:
@@ -152,7 +143,7 @@ class Entity(dict):
     """
 
     # Note that you must have a valid key, otherwise this makes no sense.
-    entity = self.dataset().connection().get_entities(self.key().to_protobuf())
+    entity = self.dataset().get_entities(self.key().to_protobuf())
 
     # TODO(jjg): Raise an error if something dumb happens.
     if entity:
@@ -161,11 +152,13 @@ class Entity(dict):
 
   def save(self):
     """Save the entity in the Cloud Datastore."""
-    key = self.dataset().connection().save_entity(
+    key_pb = self.dataset().connection().save_entity(
         dataset_id=self.dataset().id(), key_pb=self.key().to_protobuf(),
         properties=dict(self))
-    self.key(Key.from_protobuf(key))
-    return self
+    updated_key = Key.from_protobuf(key_pb)
+    # Update the path (which may have been altered).
+    key = self.key().path(updated_key.path())
+    return self.key(key)
 
   def delete(self):
     """Delete the entity in the Cloud Datastore.
