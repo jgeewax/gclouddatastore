@@ -1,5 +1,5 @@
 Google Cloud Datastore (Python API)
-=======================
+===================================
 
 :mod:`gclouddatastore` Package
 ------------------------------
@@ -9,8 +9,8 @@ Google Cloud Datastore (Python API)
     :undoc-members:
     :show-inheritance:
 
-:mod:`connection` Module
-------------------------
+Connections
+-----------
 
 .. automodule:: gclouddatastore.connection
     :members:
@@ -18,15 +18,15 @@ Google Cloud Datastore (Python API)
     :show-inheritance:
 
 Credentials
--------------------------
+-----------
 
 .. automodule:: gclouddatastore.credentials
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`dataset` Module
----------------------
+Datasets
+--------
 
 .. automodule:: gclouddatastore.dataset
     :members:
@@ -34,23 +34,23 @@ Credentials
     :show-inheritance:
 
 Entities
---------------------
+--------
 
 .. automodule:: gclouddatastore.entity
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`key` Module
------------------
+Keys
+----
 
 .. automodule:: gclouddatastore.key
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`query` Module
--------------------
+Queries
+-------
 
 .. automodule:: gclouddatastore.query
     :members:
@@ -58,7 +58,7 @@ Entities
     :show-inheritance:
 
 Helpers
----------------------
+-------
 
 .. automodule:: gclouddatastore.helpers
     :members:
