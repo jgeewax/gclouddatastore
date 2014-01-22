@@ -14,9 +14,6 @@ def main():
   connection = gclouddatastore.get_connection(CLIENT_EMAIL, PRIVATE_KEY_PATH)
   dataset = connection.dataset('jgatsby-storage')
 
-  # Start with a Query for Things.
-  query = dataset.query().kind('Thing')
-
   print '\nCreating a new Thing called Toy...'
   toy = dataset.entity('Thing')
   toy.update({'name': 'Toy', 'some_int_value': 1234})
@@ -30,6 +27,8 @@ def main():
 
   print '\nLooking up the Toy again (this should be empty)...'
   print dataset.get_entities([toy.key()])
+
+  query = dataset.query().kind('Thing')
 
   print '\nShowing first 2 Things...'
   print query.limit(2).fetch()
