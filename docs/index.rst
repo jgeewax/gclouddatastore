@@ -1,8 +1,13 @@
 Google Cloud Datastore (Python API)
 ===================================
 
-:mod:`gclouddatastore` Package
-------------------------------
+.. warning::
+  This library is still under construction
+  and is **not** the official Google Python API client library.
+  See the `official documentation <https://developers.google.com/datastore/docs/apis/python/>`_
+
+:mod:`gclouddatastore`
+----------------------
 
 .. automodule:: gclouddatastore.__init__
     :members:

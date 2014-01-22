@@ -77,6 +77,7 @@ class Entity(dict):
     >>> entity.key()  # This returns the key.
     <Key[{'kind': 'OtherKeyKind', 'id': 1234}]>
     """
+
     if key:
       self._key = key
       return self
@@ -87,9 +88,14 @@ class Entity(dict):
     """Get the kind of the current entity.
 
     .. note::
-      This relies entirely on the :class:`gclouddatastore.key.Key` set on the
-      entity.
+      This relies entirely on
+      the :class:`gclouddatastore.key.Key`
+      set on the entity.
+      That means that we're not storing the kind of the entity at all,
+      just the properties and a pointer to a Key
+      which knows its Kind.
     """
+
     if self.key():
       return self.key().kind()
 
@@ -151,7 +157,11 @@ class Entity(dict):
     return self
 
   def save(self):
-    """Save the entity in the Cloud Datastore."""
+    """Save the entity in the Cloud Datastore.
+
+    :rtype: :class:`gclouddatastore.entity.Entity`
+    :returns: The entity with a possibly updated Key.
+    """
     key_pb = self.dataset().connection().save_entity(
         dataset_id=self.dataset().id(), key_pb=self.key().to_protobuf(),
         properties=dict(self))

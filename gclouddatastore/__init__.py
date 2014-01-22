@@ -42,7 +42,8 @@ def get_connection(client_email, private_key_path):
   Use this if you are going to access several datasets
   with the same set of credentials (unlikely):
 
-  >>> connection = get_connection(email, key_path)
+  >>> import gclouddatastore
+  >>> connection = gclouddatastore.get_connection(email, key_path)
   >>> dataset1 = connection.dataset('dataset1')
   >>> dataset2 = connection.dataset('dataset2')
 
@@ -53,6 +54,9 @@ def get_connection(client_email, private_key_path):
   :param private_key_path: The path to a private key file (this file was
                            given to you when you created the service
                            account).
+
+  :rtype: :class:`gclouddatastore.connection.Connection`
+  :returns: A connection defined with the proper credentials.
   """
   credentials = Credentials.get_for_service_account(
       client_email, private_key_path)
@@ -61,7 +65,13 @@ def get_connection(client_email, private_key_path):
 def get_dataset(dataset_id, client_email, private_key_path):
   """Shortcut method to establish a connection to a particular dataset in the Cloud Datastore.
 
-  You'll generally use this as the first call to working with the API.
+  You'll generally use this as the first call to working with the API:
+
+  >>> import gclouddatastore
+  >>> dataset = gclouddatastore.get_dataset('dataset-id', email, key_path)
+  >>> # Now you can do things with the dataset.
+  >>> dataset.query().kind('TestKind').fetch()
+  [...]
 
   :type dataset_id: string
   :param dataset_id: The id of the dataset you want to use.
@@ -76,6 +86,9 @@ def get_dataset(dataset_id, client_email, private_key_path):
   :param private_key_path: The path to a private key file (this file was
                            given to you when you created the service
                            account).
+
+  :rtype: :class:`gclouddatastore.dataset.Dataset`
+  :returns: A dataset with a connection using the provided credentials.
   """
   connection = get_connection(client_email, private_key_path)
   return connection.dataset(dataset_id)
