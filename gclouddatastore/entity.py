@@ -10,12 +10,15 @@ class Entity(dict):
   to duplicate the object.
   """
 
-  def __init__(self, dataset, kind):
-    self._dataset = dataset
-    self._key = Key(dataset=dataset).kind(kind)
+  def __init__(self, dataset=None, kind=None):
+    if dataset and kind:
+      self._key = Key(dataset=dataset).kind(kind)
+    else:
+      self._key = None
 
   def dataset(self):
-    return self._dataset
+    if self.key():
+      return self.key().dataset()
 
   def key(self, key=None):
     if key:
@@ -30,7 +33,7 @@ class Entity(dict):
 
   @classmethod
   def from_key(cls, key, load_properties=True):
-    entity = cls(dataset=key.dataset(), kind=key.kind())
+    entity = cls().key(key)
     if load_properties:
       entity = entity.reload()
     return entity
