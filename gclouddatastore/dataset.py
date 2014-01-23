@@ -1,13 +1,60 @@
 class Dataset(object):
+  """A dataset in the Cloud Datastore.
+
+  This class acts as an abstraction of a single dataset
+  in the Cloud Datastore.
+
+  A dataset is analogous to a database
+  in relational database world,
+  and corresponds to a single project
+  using the Cloud Datastore.
+
+  Typically, you would only have one of these per connection
+  however it didn't seem right to collapse the functionality
+  of a connection and a dataset together into a single class.
+
+  Datasets (like :class:`gclouddatastore.query.Query`s)
+  are immutable.
+  That is, you cannot change the ID and connection
+  references.
+  If you need to modify the connection or ID,
+  it's recommended to construct a new :class:`Dataset`.
+
+  :type id: string
+  :param id: The ID of the dataset (your project ID)
+
+  :type connection: :class:`gclouddatastore.connection.Connection`
+  :param connection: The connection to use for executing API calls.
+  """
 
   def __init__(self, id, connection=None):
     self._connection = connection
     self._id = id
 
   def connection(self):
+    """Get the current connection.
+
+      >>> dataset = Dataset('dataset-id', connection=conn)
+      >>> dataset.connection()
+      <Connection object>
+
+    :rtype: :class:`gclouddatastore.connection.Connection`
+    :returns: Returns the current connection.
+    """
+
     return self._connection
 
   def id(self):
+    """Get the current dataset ID.
+
+      >>> dataset = Dataset('dataset-id', connection=conn)
+      >>> dataset.id()
+      'dataset-id'
+
+    :rtype: string
+    :returns: The current dataset ID.
+    """
+
     return self._id
 
   def query(self, *args, **kwargs):

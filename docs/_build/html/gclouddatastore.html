@@ -501,10 +501,54 @@ account).</li>
 <dt id="gclouddatastore.dataset.Dataset">
 <em class="property">class </em><tt class="descclassname">gclouddatastore.dataset.</tt><tt class="descname">Dataset</tt><big>(</big><em>id</em>, <em>connection=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A dataset in the Cloud Datastore.</p>
+<p>This class acts as an abstraction of a single dataset
+in the Cloud Datastore.</p>
+<p>A dataset is analogous to a database
+in relational database world,
+and corresponds to a single project
+using the Cloud Datastore.</p>
+<p>Typically, you would only have one of these per connection
+however it didn&#8217;t seem right to collapse the functionality
+of a connection and a dataset together into a single class.</p>
+<p>Datasets (like <tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.query.Query`s)</span>
+<span class="pre">are</span> <span class="pre">immutable.</span>
+<span class="pre">That</span> <span class="pre">is,</span> <span class="pre">you</span> <span class="pre">cannot</span> <span class="pre">change</span> <span class="pre">the</span> <span class="pre">ID</span> <span class="pre">and</span> <span class="pre">connection</span>
+<span class="pre">references.</span>
+<span class="pre">If</span> <span class="pre">you</span> <span class="pre">need</span> <span class="pre">to</span> <span class="pre">modify</span> <span class="pre">the</span> <span class="pre">connection</span> <span class="pre">or</span> <span class="pre">ID,</span>
+<span class="pre">it's</span> <span class="pre">recommended</span> <span class="pre">to</span> <span class="pre">construct</span> <span class="pre">a</span> <span class="pre">new</span> <span class="pre">:class:`Dataset</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>string</em>) &#8211; The ID of the dataset (your project ID)</li>
+<li><strong>connection</strong> (<a class="reference internal" href="#gclouddatastore.connection.Connection" title="gclouddatastore.connection.Connection"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.connection.Connection</span></tt></a>) &#8211; The connection to use for executing API calls.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="gclouddatastore.dataset.Dataset.connection">
 <tt class="descname">connection</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset.connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset.connection" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the current connection.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="s">&#39;dataset-id&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="n">conn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">connection</span><span class="p">()</span>
+<span class="go">&lt;Connection object&gt;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gclouddatastore.connection.Connection" title="gclouddatastore.connection.Connection"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.connection.Connection</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns the current connection.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gclouddatastore.dataset.Dataset.entity">
@@ -537,7 +581,23 @@ account).</li>
 <dl class="method">
 <dt id="gclouddatastore.dataset.Dataset.id">
 <tt class="descname">id</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/gclouddatastore/dataset.html#Dataset.id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.dataset.Dataset.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the current dataset ID.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="s">&#39;dataset-id&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="n">conn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+<span class="go">&#39;dataset-id&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The current dataset ID.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gclouddatastore.dataset.Dataset.query">
