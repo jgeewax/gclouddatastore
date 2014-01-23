@@ -1,71 +1,30 @@
+:tocdepth: 2
+
 Google Cloud Datastore (Python API)
 ===================================
 
 .. warning::
   This library is still under construction
   and is **not** the official Google Python API client library.
-  See the `official documentation <https://developers.google.com/datastore/docs/apis/python/>`_
+  See the `official documentation <https://developers.google.com/datastore/docs/apis/python/>`_.
 
-:mod:`gclouddatastore`
-----------------------
+Getting started
+---------------
 
-.. automodule:: gclouddatastore.__init__
-    :members:
-    :undoc-members:
-    :show-inheritance:
+A good place to look is the guide: :doc:`quickstart`.
+If you have questions,
+or find any bugs,
+feel free to open an issue on
+the `GitHub repository <http://github.com/jgeewax/gclouddatastore>`_.
 
-Connections
------------
+.. toctree::
+  :hidden:
 
-.. automodule:: gclouddatastore.connection
-    :members:
-    :undoc-members:
-    :show-inheritance:
+  quickstart
+  gclouddatastore
 
-Credentials
------------
+Indices and tables
+------------------
 
-.. automodule:: gclouddatastore.credentials
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-Datasets
---------
-
-.. automodule:: gclouddatastore.dataset
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-Entities
---------
-
-.. automodule:: gclouddatastore.entity
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-Keys
-----
-
-.. automodule:: gclouddatastore.key
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-Queries
--------
-
-.. automodule:: gclouddatastore.query
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-Helpers
--------
-
-.. automodule:: gclouddatastore.helpers
-    :members:
-    :undoc-members:
-    :show-inheritance:
+* :ref:`genindex`
+* :ref:`modindex`

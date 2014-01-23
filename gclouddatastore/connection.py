@@ -6,12 +6,13 @@ from gclouddatastore.dataset import Dataset
 
 
 class Connection(object):
-
-  """
-  A connection Google Cloud Datastore via the Protobuf API.
+  """A connection to the Google Cloud Datastore via the Protobuf API.
 
   This class should understand only the basic types (and protobufs)
   in method arguments, however should be capable of returning advanced types.
+
+  :type credentials: :class:`gclouddatastore.credentials.Credentials`
+  :param credentials: The OAuth2 Credentials to use for this connection.
   """
 
   API_BASE_URL = 'https://www.googleapis.com'
@@ -25,10 +26,6 @@ class Connection(object):
   """A template used to craft the URL pointing toward a particular API call."""
 
   def __init__(self, credentials=None):
-    """
-    :type credentials: :class:`gclouddatastore.credentials.Credentials`
-    :param credentials: The OAuth2 Credentials to use for this connection.
-    """
     self._credentials = credentials
     self._http = None
 

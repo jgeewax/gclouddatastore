@@ -1,3 +1,20 @@
+"""Class for representing a single entity in the Cloud Datastore.
+
+Entities are akin to rows in a relational database,
+storing the actual instance of data.
+
+Each entity is officially represented with
+a :class:`gclouddatastore.key.Key` class,
+however it is possible that you might create
+an Entity with only a partial Key
+(that is, a Key with a Kind,
+and possibly a parent, but without an ID).
+
+Entities in this API act like dictionaries
+with extras built in that allow you to
+delete or persist the data stored on the entity.
+"""
+
 from datetime import datetime
 
 from gclouddatastore.key import Key
@@ -44,9 +61,6 @@ class Entity(dict):
   """
 
   def __init__(self, dataset=None, kind=None):
-    """
-    """
-
     if dataset and kind:
       self._key = Key(dataset=dataset).kind(kind)
     else:

@@ -69,7 +69,28 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix">
         
         
-            
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Getting started with Cloud Datastore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#creating-a-project">Creating a project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#enable-the-cloud-datastore-api">Enable the Cloud Datastore API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#enable-a-service-account">Enable a &#8220;Service Account&#8221;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#add-some-data-to-your-datastore">Add some data to your Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#ok-go-build-cool-stuff-now">OK, go build cool stuff now</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../gclouddatastore.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.__init__"><tt class="docutils literal"><span class="pre">gclouddatastore</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.connection">Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.credentials">Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.dataset">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.entity">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.key">Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.query">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.helpers">Helpers</a></li>
+</ul>
+</li>
+</ul>
+
         
       </div>
       &nbsp;
@@ -103,7 +124,7 @@
 <span class="kn">from</span> <span class="nn">gclouddatastore.key</span> <span class="kn">import</span> <span class="n">Key</span>
 
 
-<div class="viewcode-block" id="get_protobuf_attribute_and_value"><a class="viewcode-back" href="../../index.html#gclouddatastore.helpers.get_protobuf_attribute_and_value">[docs]</a><span class="k">def</span> <span class="nf">get_protobuf_attribute_and_value</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+<div class="viewcode-block" id="get_protobuf_attribute_and_value"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.helpers.get_protobuf_attribute_and_value">[docs]</a><span class="k">def</span> <span class="nf">get_protobuf_attribute_and_value</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Given a value, return the protobuf attribute name and proper value.&quot;&quot;&quot;</span>
 
   <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
@@ -122,7 +143,7 @@
   <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#39;_value&#39;</span><span class="p">,</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="get_value_from_protobuf"><a class="viewcode-back" href="../../index.html#gclouddatastore.helpers.get_value_from_protobuf">[docs]</a><span class="k">def</span> <span class="nf">get_value_from_protobuf</span><span class="p">(</span><span class="n">pb</span><span class="p">):</span>
+<div class="viewcode-block" id="get_value_from_protobuf"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.helpers.get_value_from_protobuf">[docs]</a><span class="k">def</span> <span class="nf">get_value_from_protobuf</span><span class="p">(</span><span class="n">pb</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Given a protobuf for a Property, get the value we care about.&quot;&quot;&quot;</span>
 
   <span class="k">if</span> <span class="n">pb</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s">&#39;timestamp_microseconds_value&#39;</span><span class="p">):</span>

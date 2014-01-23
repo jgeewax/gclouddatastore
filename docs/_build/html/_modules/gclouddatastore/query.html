@@ -69,7 +69,28 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix">
         
         
-            
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Getting started with Cloud Datastore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#creating-a-project">Creating a project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#enable-the-cloud-datastore-api">Enable the Cloud Datastore API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#enable-a-service-account">Enable a &#8220;Service Account&#8221;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#add-some-data-to-your-datastore">Add some data to your Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#ok-go-build-cool-stuff-now">OK, go build cool stuff now</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../gclouddatastore.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.__init__"><tt class="docutils literal"><span class="pre">gclouddatastore</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.connection">Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.credentials">Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.dataset">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.entity">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.key">Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.query">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.helpers">Helpers</a></li>
+</ul>
+</li>
+</ul>
+
         
       </div>
       &nbsp;
@@ -104,7 +125,7 @@
 
 <span class="c"># TODO: Figure out how to properly handle namespaces.</span>
 
-<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../index.html#gclouddatastore.query.Query">[docs]</a><span class="k">class</span> <span class="nc">Query</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.query.Query">[docs]</a><span class="k">class</span> <span class="nc">Query</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
   <span class="n">OPERATORS</span> <span class="o">=</span> <span class="p">{</span>
       <span class="s">&#39;&lt;&#39;</span><span class="p">:</span> <span class="n">datastore_pb</span><span class="o">.</span><span class="n">PropertyFilter</span><span class="o">.</span><span class="n">LESS_THAN</span><span class="p">,</span>
@@ -127,10 +148,10 @@
     <span class="n">clone</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span>  <span class="c"># Shallow copy the dataset.</span>
     <span class="k">return</span> <span class="n">clone</span>
 
-<div class="viewcode-block" id="Query.to_protobuf"><a class="viewcode-back" href="../../index.html#gclouddatastore.query.Query.to_protobuf">[docs]</a>  <span class="k">def</span> <span class="nf">to_protobuf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Query.to_protobuf"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.query.Query.to_protobuf">[docs]</a>  <span class="k">def</span> <span class="nf">to_protobuf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pb</span>
 </div>
-<div class="viewcode-block" id="Query.filter"><a class="viewcode-back" href="../../index.html#gclouddatastore.query.Query.filter">[docs]</a>  <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Query.filter"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.query.Query.filter">[docs]</a>  <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
 
     <span class="c"># Take an expression like &#39;property &gt;=&#39;, and parse it into useful pieces.</span>
@@ -159,7 +180,7 @@
     <span class="nb">setattr</span><span class="p">(</span><span class="n">property_filter</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">pb_value</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">clone</span>
 </div>
-<div class="viewcode-block" id="Query.kind"><a class="viewcode-back" href="../../index.html#gclouddatastore.query.Query.kind">[docs]</a>  <span class="k">def</span> <span class="nf">kind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">kinds</span><span class="p">):</span>
+<div class="viewcode-block" id="Query.kind"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.query.Query.kind">[docs]</a>  <span class="k">def</span> <span class="nf">kind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">kinds</span><span class="p">):</span>
     <span class="c"># TODO: Do we want this to be additive?</span>
     <span class="c">#       If not, clear the _pb.kind attribute.</span>
     <span class="k">if</span> <span class="n">kinds</span><span class="p">:</span>
@@ -170,7 +191,7 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pb</span><span class="o">.</span><span class="n">kind</span>
 </div>
-<div class="viewcode-block" id="Query.limit"><a class="viewcode-back" href="../../index.html#gclouddatastore.query.Query.limit">[docs]</a>  <span class="k">def</span> <span class="nf">limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Query.limit"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.query.Query.limit">[docs]</a>  <span class="k">def</span> <span class="nf">limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">limit</span><span class="p">:</span>
       <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
       <span class="n">clone</span><span class="o">.</span><span class="n">_pb</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
@@ -178,7 +199,7 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pb</span><span class="o">.</span><span class="n">limit</span>
 </div>
-<div class="viewcode-block" id="Query.dataset"><a class="viewcode-back" href="../../index.html#gclouddatastore.query.Query.dataset">[docs]</a>  <span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Query.dataset"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.query.Query.dataset">[docs]</a>  <span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">dataset</span><span class="p">:</span>
       <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
       <span class="n">clone</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">dataset</span>
@@ -186,7 +207,7 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span>
 </div>
-<div class="viewcode-block" id="Query.fetch"><a class="viewcode-back" href="../../index.html#gclouddatastore.query.Query.fetch">[docs]</a>  <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Query.fetch"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.query.Query.fetch">[docs]</a>  <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span>
 
     <span class="k">if</span> <span class="n">limit</span><span class="p">:</span>

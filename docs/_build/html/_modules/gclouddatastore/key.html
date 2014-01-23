@@ -69,7 +69,28 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix">
         
         
-            
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Getting started with Cloud Datastore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#creating-a-project">Creating a project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#enable-the-cloud-datastore-api">Enable the Cloud Datastore API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#enable-a-service-account">Enable a &#8220;Service Account&#8221;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#add-some-data-to-your-datastore">Add some data to your Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#ok-go-build-cool-stuff-now">OK, go build cool stuff now</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../gclouddatastore.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.__init__"><tt class="docutils literal"><span class="pre">gclouddatastore</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.connection">Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.credentials">Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.dataset">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.entity">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.key">Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.query">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gclouddatastore.html#module-gclouddatastore.helpers">Helpers</a></li>
+</ul>
+</li>
+</ul>
+
         
       </div>
       &nbsp;
@@ -103,7 +124,7 @@
 <span class="kn">from</span> <span class="nn">gclouddatastore.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
 
 
-<div class="viewcode-block" id="Key"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key">[docs]</a><span class="k">class</span> <span class="nc">Key</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Key"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key">[docs]</a><span class="k">class</span> <span class="nc">Key</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  An immutable representation of a datastore Key.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
@@ -117,7 +138,7 @@
     <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
   <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Key.from_protobuf"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.from_protobuf">[docs]</a>  <span class="k">def</span> <span class="nf">from_protobuf</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">pb</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.from_protobuf"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.from_protobuf">[docs]</a>  <span class="k">def</span> <span class="nf">from_protobuf</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">pb</span><span class="p">):</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">pb</span><span class="o">.</span><span class="n">path_element</span><span class="p">:</span>
       <span class="n">element_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;kind&#39;</span><span class="p">:</span> <span class="n">element</span><span class="o">.</span><span class="n">kind</span><span class="p">}</span>
@@ -133,7 +154,7 @@
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">pb</span><span class="o">.</span><span class="n">partition_id</span><span class="o">.</span><span class="n">dataset_id</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Key.to_protobuf"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.to_protobuf">[docs]</a>  <span class="k">def</span> <span class="nf">to_protobuf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.to_protobuf"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.to_protobuf">[docs]</a>  <span class="k">def</span> <span class="nf">to_protobuf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">key</span> <span class="o">=</span> <span class="n">datastore_pb</span><span class="o">.</span><span class="n">Key</span><span class="p">()</span>
 
     <span class="c"># Apparently &#39;s~&#39; is a prefix for High-Replication and is necessary here.</span>
@@ -157,7 +178,7 @@
     <span class="k">return</span> <span class="n">key</span>
 </div>
   <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Key.from_path"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.from_path">[docs]</a>  <span class="k">def</span> <span class="nf">from_path</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.from_path"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.from_path">[docs]</a>  <span class="k">def</span> <span class="nf">from_path</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">items</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
@@ -172,10 +193,10 @@
     <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;path&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
     <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Key.is_partial"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.is_partial">[docs]</a>  <span class="k">def</span> <span class="nf">is_partial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.is_partial"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.is_partial">[docs]</a>  <span class="k">def</span> <span class="nf">is_partial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id_or_name</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Key.dataset"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.dataset">[docs]</a>  <span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.dataset"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.dataset">[docs]</a>  <span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">dataset</span><span class="p">:</span>
       <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
       <span class="n">clone</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">dataset</span>
@@ -183,7 +204,7 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span>
 </div>
-<div class="viewcode-block" id="Key.namespace"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.namespace">[docs]</a>  <span class="k">def</span> <span class="nf">namespace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.namespace"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.namespace">[docs]</a>  <span class="k">def</span> <span class="nf">namespace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">namespace</span><span class="p">:</span>
       <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
       <span class="n">clone</span><span class="o">.</span><span class="n">_namespace</span> <span class="o">=</span> <span class="n">namespace</span>
@@ -191,7 +212,7 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_namespace</span>
 </div>
-<div class="viewcode-block" id="Key.path"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.path">[docs]</a>  <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.path"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.path">[docs]</a>  <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
       <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
       <span class="n">clone</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
@@ -199,7 +220,7 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span>
 </div>
-<div class="viewcode-block" id="Key.kind"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.kind">[docs]</a>  <span class="k">def</span> <span class="nf">kind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.kind"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.kind">[docs]</a>  <span class="k">def</span> <span class="nf">kind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">kind</span><span class="p">:</span>
       <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
       <span class="n">clone</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s">&#39;kind&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kind</span>
@@ -207,7 +228,7 @@
     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">():</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s">&#39;kind&#39;</span><span class="p">]</span>
 </div>
-<div class="viewcode-block" id="Key.id"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.id">[docs]</a>  <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.id"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.id">[docs]</a>  <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">id</span><span class="p">:</span>
       <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
       <span class="n">clone</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">id</span>
@@ -215,7 +236,7 @@
     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">():</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Key.name"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.name">[docs]</a>  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.name"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.name">[docs]</a>  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
       <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
       <span class="n">clone</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
@@ -223,10 +244,10 @@
     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">():</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Key.id_or_name"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.id_or_name">[docs]</a>  <span class="k">def</span> <span class="nf">id_or_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.id_or_name"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.id_or_name">[docs]</a>  <span class="k">def</span> <span class="nf">id_or_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
 </div>
-<div class="viewcode-block" id="Key.parent"><a class="viewcode-back" href="../../index.html#gclouddatastore.key.Key.parent">[docs]</a>  <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Key.parent"><a class="viewcode-back" href="../../gclouddatastore.html#gclouddatastore.key.Key.parent">[docs]</a>  <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 </div>
   <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
