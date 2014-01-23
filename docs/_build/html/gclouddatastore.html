@@ -461,9 +461,9 @@ uses this method to fetch data:</p>
 <p class="first admonition-title">Note</p>
 <p class="last">You should not need to use this class directly.
 Instead, use the helper methods provided in
-<a class="reference internal" href="#gclouddatastore.__init__.get_connection" title="gclouddatastore.__init__.get_connection"><tt class="xref py py-func docutils literal"><span class="pre">gclouddatastore.__init__.get_connection()</span></tt></a>
+<a class="reference internal" href="index.html#gclouddatastore.__init__.get_connection" title="gclouddatastore.__init__.get_connection"><tt class="xref py py-func docutils literal"><span class="pre">gclouddatastore.__init__.get_connection()</span></tt></a>
 and
-<a class="reference internal" href="#gclouddatastore.__init__.get_dataset" title="gclouddatastore.__init__.get_dataset"><tt class="xref py py-func docutils literal"><span class="pre">gclouddatastore.__init__.get_dataset()</span></tt></a>
+<a class="reference internal" href="index.html#gclouddatastore.__init__.get_dataset" title="gclouddatastore.__init__.get_dataset"><tt class="xref py py-func docutils literal"><span class="pre">gclouddatastore.__init__.get_dataset()</span></tt></a>
 which use this class under the hood.</p>
 </div>
 <dl class="attribute">
@@ -892,6 +892,7 @@ with that dataset set.</td>
 sends the Query as a protobuf,
 parses the responses to Entity protobufs,
 and then converts them to <a class="reference internal" href="#gclouddatastore.entity.Entity" title="gclouddatastore.entity.Entity"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.entity.Entity</span></tt></a> objects.</p>
+<p>For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">gclouddatastore</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">gclouddatastore</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s">&#39;dataset-id&#39;</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">key_path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">query</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s">&#39;Person&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;name =&#39;</span><span class="p">,</span> <span class="s">&#39;Sally&#39;</span><span class="p">)</span>

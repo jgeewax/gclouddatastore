@@ -17,6 +17,17 @@ or find any bugs,
 feel free to open an issue on
 the `GitHub repository <http://github.com/jgeewax/gclouddatastore>`_.
 
+API Documentation
+-----------------
+
+This site has the full :doc:`gclouddatastore`,
+but the basics to get started are here...
+
+.. automodule:: gclouddatastore.__init__
+  :members:
+  :undoc-members:
+  :show-inheritance:
+
 .. toctree::
   :hidden:
 
