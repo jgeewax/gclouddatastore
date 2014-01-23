@@ -8,6 +8,13 @@ Google Cloud Datastore (Python API)
   and is **not** the official Google Python API client library.
   See the `official documentation <https://developers.google.com/datastore/docs/apis/python/>`_.
 
+Installing the library
+----------------------
+
+The ``gclouddatastore`` library is ``pip`` install-able::
+
+  $ pip install gclouddatastore
+
 Getting started
 ---------------
 

@@ -32,8 +32,8 @@ The main concepts with this API are:
   which represents a lookup or search over the rows in the datastore.
 """
 
-from connection import Connection
-from credentials import Credentials
+
+__version__ = '0.1'
 
 
 def get_connection(client_email, private_key_path):
@@ -58,6 +58,9 @@ def get_connection(client_email, private_key_path):
   :rtype: :class:`gclouddatastore.connection.Connection`
   :returns: A connection defined with the proper credentials.
   """
+  from connection import Connection
+  from credentials import Credentials
+
   credentials = Credentials.get_for_service_account(
       client_email, private_key_path)
   return Connection(credentials=credentials)
