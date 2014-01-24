@@ -3,6 +3,7 @@ import httplib2
 from gclouddatastore import datastore_v1_pb2 as datastore_pb
 from gclouddatastore import helpers
 from gclouddatastore.dataset import Dataset
+from gclouddatastore.transaction import Transaction
 
 
 class Connection(object):
@@ -25,8 +26,12 @@ class Connection(object):
                       '/datasets/{dataset_id}/{method}')
   """A template used to craft the URL pointing toward a particular API call."""
 
+  _EMPTY = object()
+  """A pointer to represent an empty value for default arguments."""
+
   def __init__(self, credentials=None):
     self._credentials = credentials
+    self._current_transaction = None
     self._http = None
 
   @property
@@ -107,6 +112,19 @@ class Connection(object):
         api_version=(api_version or cls.API_VERSION),
         dataset_id=dataset_id, method=method)
 
+  def transaction(self, transaction=_EMPTY):
+    if transaction is self._EMPTY:
+      return self._current_transaction
+    else:
+      self._current_transaction = transaction
+      return self
+
+  def mutation(self):
+    if self.transaction():
+      return self.transaction().mutation()
+    else:
+      return datastore_pb.Mutation()
+
   def dataset(self, *args, **kwargs):
     """Factory method for Dataset objects.
 
@@ -118,6 +136,50 @@ class Connection(object):
     """
     kwargs['connection'] = self
     return Dataset(*args, **kwargs)
+
+  def begin_transaction(self, dataset_id, serializable=False):
+    """Begin a transaction.
+
+    :type dataset_id: string
+    :param dataset_id: The dataset over which to execute the transaction.
+    """
+
+    if self.transaction():
+      raise ValueError('Cannot start a transaction with another already '
+                       'in progress.')
+
+    request = datastore_pb.BeginTransactionRequest()
+
+    if serializable:
+      request.isolation_level = datastore_pb.BeginTransactionRequest.SERIALIZABLE
+    else:
+      request.isolation_level = datastore_pb.BeginTransactionRequest.SNAPSHOT
+
+    response = self._rpc(dataset_id, 'beginTransaction', request,
+                         datastore_pb.BeginTransactionResponse)
+
+    return response.transaction
+
+  def rollback_transaction(self, dataset_id, transaction_id):
+    """Rollback an existing transaction.
+
+    Raises a ``ValueError``
+    if the connection isn't currently in a transaction.
+
+    :type dataset_id: string
+    :param dataset_id: The dataset to which the transaction belongs.
+
+    :type transaction_id: string
+    :param transaction_id: The ID of the transaction to roll back.
+    """
+    if not self.transaction() or not self.transaction().id():
+      raise ValueError('No transaction to rollback.')
+
+    request = datastore_pb.RollbackRequest()
+    request.transaction = transaction_id
+    # Nothing to do with this response, so just execute the method.
+    self._rpc(dataset_id, 'rollback', request,
+              datastore_pb.RollbackResponse)
 
   def run_query(self, dataset_id, query_pb, namespace=None):
     """Run a query on the Cloud Datastore.
@@ -229,21 +291,50 @@ class Connection(object):
 
     return results
 
+  def commit(self, dataset_id, mutation_pb):
+    request = datastore_pb.CommitRequest()
+
+    if self.transaction():
+      request.mode = datastore_pb.CommitRequest.TRANSACTIONAL
+      request.transaction = self.transaction().id()
+    else:
+      request.mode = datastore_pb.CommitRequest.NON_TRANSACTIONAL
+
+    request.mutation.CopyFrom(mutation_pb)
+    response = self._rpc(dataset_id, 'commit', request,
+                         datastore_pb.CommitResponse)
+    return response.mutation_result
+
   def save_entity(self, dataset_id, key_pb, properties):
+    """Save an entity to the Cloud Datastore with the provided properties.
+
+    :type dataset_id: string
+    :param dataset_id: The dataset in which to save the entity.
+
+    :type key_pb: :class:`gclouddatastore.datastore_v1_pb2.Key`
+    :param key_pb: The complete or partial key for the entity.
+
+    :type properties: dict
+    :param properties: The properties to store on the entity.
+    """
     # TODO: Is this the right method name?
-    # Create a non-transactional commit request.
-    commit_request = datastore_pb.CommitRequest()
-    commit_request.mode = datastore_pb.CommitRequest.NON_TRANSACTIONAL
+    # TODO: How do you delete properties? Set them to None?
+    mutation = self.mutation()
 
-    # TODO: Make this work with update, etc.
-    # TODO: Make this work with named keys (rather than just auto ID).
-    mutation = commit_request.mutation.insert_auto_id.add()
+    # If the Key is complete, we should upsert
+    # instead of using insert_auto_id.
+    path = key_pb.path_element[-1]
+    auto_id = not (path.HasField('id') or path.HasField('name'))
 
-    # First set the (partial) key.
-    mutation.key.CopyFrom(key_pb)
+    if auto_id:
+      insert = mutation.insert_auto_id.add()
+    else:
+      insert = mutation.upsert.add()
+
+    insert.key.CopyFrom(key_pb)
 
     for name, value in properties.iteritems():
-      prop = mutation.property.add()
+      prop = insert.property.add()
       # Set the name of the property.
       prop.name = name
 
@@ -251,9 +342,17 @@ class Connection(object):
       pb_attr, pb_value = helpers.get_protobuf_attribute_and_value(value)
       setattr(prop.value, pb_attr, pb_value)
 
-    response = self._rpc(dataset_id, 'commit', commit_request, datastore_pb.CommitResponse)
+    # If this is in a transaction, we should just return True. The transaction
+    # will handle assigning any keys as necessary.
+    if self.transaction():
+      return True
 
-    return response.mutation_result.insert_auto_id_key[0]
+    result = self.commit(dataset_id, mutation)
+    # If this was an auto-assigned ID, return the new Key.
+    if auto_id:
+      return result.insert_auto_id_key[0]
+
+    return True
 
   def delete_entities(self, dataset_id, key_pbs):
     """Delete keys from a dataset in the Cloud Datastore.
@@ -271,17 +370,17 @@ class Connection(object):
                    (or a single Key)
     :param key_pbs: The key (or keys) to delete from the datastore.
     """
-    # Create a non-transactional commit request.
-    commit_request = datastore_pb.CommitRequest()
-    commit_request.mode = datastore_pb.CommitRequest.NON_TRANSACTIONAL
+    mutation = self.mutation()
 
     for key_pb in key_pbs:
-      mutation = commit_request.mutation.delete.add()
-      mutation.CopyFrom(key_pb)
+      delete = mutation.delete.add()
+      delete.CopyFrom(key_pb)
 
     # TODO: Make this return value be a True/False (or something more useful).
-    return self._rpc(dataset_id, 'commit', commit_request,
-                     datastore_pb.CommitResponse)
+    if self.transaction():
+      return True
+    else:
+      return self.commit(dataset_id, mutation)
 
   def delete_entity(self, dataset_id, key_pb):
     # TODO: Is this the right way to handle deleting

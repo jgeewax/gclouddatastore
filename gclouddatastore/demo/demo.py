@@ -53,6 +53,57 @@ def main():
   print query.filter('name =', 'Computer').filter(
       'my_int_value =', 1234).fetch()
 
+  print '\nStarting a transaction...'
+  with dataset.transaction():
+    print 'Creating and savng an entity...'
+    thing = dataset.entity('Thing')
+    thing.key(thing.key().name('foo'))
+    thing['age'] = 10
+    thing.save()
+
+    print 'Creating and saving another entity...'
+    thing2 = dataset.entity('Thing')
+    thing2.key(thing2.key().name('bar'))
+    thing2['age'] = 15
+    thing2.save()
+
+    print 'Committing the transaction...',
+
+  print 'done.'
+
+  print '\nDeleting the entities...'
+  print thing.delete(), thing2.delete()
+
+  print '\nStarting another transaction...'
+  with dataset.transaction() as t:
+    print 'Creating an entity...'
+    thing = dataset.entity('Thing')
+    thing.key(thing.key().name('another'))
+    thing.save()
+
+    print 'Rolling back the transaction...'
+    t.rollback()
+
+  print 'Was the entity actually created? ... ',
+
+  if dataset.get_entities([thing.key()]):
+    print 'yes.'
+  else:
+    print 'no.'
+
+  print '\nStarting one more transaction...'
+  with dataset.transaction():
+    print 'Creating a simple thing'
+    thing = dataset.entity('Thing')
+    thing.save()
+
+    print 'Before committing, the key should be incomplete...', thing.key()
+
+  print 'After committing, the key should be complete...', thing.key()
+
+  print 'Deleting the entity...'
+  thing.delete()
+
 
 if __name__ == '__main__':
   main()
