@@ -65,6 +65,8 @@ class Key(object):
         element.kind = item['kind']
       if 'id' in item:
         element.id = item['id']
+      if 'name' in item:
+        element.name = item['name']
 
     return key
 

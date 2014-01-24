@@ -40,6 +40,21 @@ def main():
   print query.filter('name =', 'Computer').filter(
       'my_int_value =', 1234).fetch()
 
+  with dataset.transaction():
+    thing = dataset.entity('Thing')
+    thing.key(thing.key().name('foo'))
+    thing['age'] = 10
+    thing.save()
+
+    thing2 = dataset.entity('Thing')
+    thing2.key(thing2.key().name('bar'))
+    thing2['age'] = 15
+    thing2.save()
+
+  print thing.key(), thing.delete()
+  thing2.delete()
+  print thing, thing2
+
 
 if __name__ == '__main__':
   main()

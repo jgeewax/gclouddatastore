@@ -66,6 +66,11 @@ class Dataset(object):
     from gclouddatastore.entity import Entity
     return Entity(dataset=self, kind=kind)
 
+  def transaction(self, *args, **kwargs):
+    from gclouddatastore.transaction import Transaction
+    kwargs['dataset'] = self
+    return Transaction(*args, **kwargs)
+
   def get_entity(self, key):
     """
     Retrieves an entity from the dataset, along with all of its attributes.

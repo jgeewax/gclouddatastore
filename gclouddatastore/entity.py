@@ -17,6 +17,7 @@ delete or persist the data stored on the entity.
 
 from datetime import datetime
 
+from gclouddatastore import datastore_v1_pb2 as datastore_pb
 from gclouddatastore.key import Key
 
 
@@ -179,10 +180,14 @@ class Entity(dict):
     key_pb = self.dataset().connection().save_entity(
         dataset_id=self.dataset().id(), key_pb=self.key().to_protobuf(),
         properties=dict(self))
-    updated_key = Key.from_protobuf(key_pb)
-    # Update the path (which may have been altered).
-    key = self.key().path(updated_key.path())
-    return self.key(key)
+
+    if isinstance(key_pb, datastore_pb.Key):
+      updated_key = Key.from_protobuf(key_pb)
+      # Update the path (which may have been altered).
+      key = self.key().path(updated_key.path())
+      self.key(key)
+
+    return self
 
   def delete(self):
     """Delete the entity in the Cloud Datastore.
@@ -192,7 +197,7 @@ class Entity(dict):
       on the entity. Whatever is stored remotely using the key on the entity
       will be deleted.
     """
-    response = self.dataset().connection().delete_entity(
+    self.dataset().connection().delete_entity(
         dataset_id=self.dataset().id(), key_pb=self.key().to_protobuf())
 
   def __repr__(self):
