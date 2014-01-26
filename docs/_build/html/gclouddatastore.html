@@ -69,12 +69,27 @@
         
         
             <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting started with Cloud Datastore</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#creating-a-project">Creating a project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#enable-the-cloud-datastore-api">Enable the Cloud Datastore API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#enable-a-service-account">Enable a &#8220;Service Account&#8221;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#add-some-data-to-your-datastore">Add some data to your Datastore</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#ok-go-build-cool-stuff-now">OK, go build cool stuff now</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Google Cloud Datastore (Python API)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#what-is-it">What is it?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-can-i-kick-the-tires">How can I kick the tires?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-do-i-get-it">How do I get it?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#ok-i-installed-it-now-what">OK, I installed it. Now what?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#what-about-the-full-api-docs">What about the full API docs?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#i-found-a-bug">I found a bug!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Get started in 10 seconds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#get-the-code-from-github">Get the code from GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#try-it-yourself">Try it yourself</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started with Cloud Datastore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#creating-a-project">Creating a project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#enable-the-cloud-datastore-api">Enable the Cloud Datastore API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#enable-a-service-account">Enable a &#8220;Service Account&#8221;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#add-some-data-to-your-datastore">Add some data to your Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#ok-go-build-cool-stuff-now">OK, go build cool stuff now</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">API Documentation</a><ul>
@@ -873,7 +888,7 @@ only locally.</p>
 <span id="queries"></span><h2>Queries<a class="headerlink" href="#module-gclouddatastore.query" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="gclouddatastore.query.Query">
-<em class="property">class </em><tt class="descclassname">gclouddatastore.query.</tt><tt class="descname">Query</tt><big>(</big><em>kinds=None</em>, <em>dataset=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">gclouddatastore.query.</tt><tt class="descname">Query</tt><big>(</big><em>kind=None</em>, <em>dataset=None</em><big>)</big><a class="reference internal" href="_modules/gclouddatastore/query.html#Query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gclouddatastore.query.Query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>A Query against the Cloud Datastore.</p>
 <p>This class serves as an abstraction for creating
@@ -905,7 +920,7 @@ without any additional work:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>kinds</strong> (<em>string or list of strings</em>) &#8211; The kind or kinds to query.</li>
+<li><strong>kind</strong> (<em>string</em>) &#8211; The kind to query.</li>
 <li><strong>dataset</strong> (<a class="reference internal" href="#gclouddatastore.dataset.Dataset" title="gclouddatastore.dataset.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">gclouddatastore.dataset.Dataset</span></tt></a>) &#8211; The dataset to query.</li>
 </ul>
 </td>

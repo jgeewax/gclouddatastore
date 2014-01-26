@@ -35,8 +35,8 @@ class Query(object):
     >>> dataset = gclouddatastore.get_dataset('dataset-id', email, key_path)
     >>> query = dataset.query('MyKind')
 
-  :type kinds: string or list of strings
-  :param kinds: The kind or kinds to query.
+  :type kind: string
+  :param kind: The kind to query.
 
   :type dataset: :class:`gclouddatastore.dataset.Dataset`
   :param dataset: The dataset to query.
@@ -51,12 +51,12 @@ class Query(object):
       }
   """Mapping of operator strings and their protobuf equivalents."""
 
-  def __init__(self, kinds=None, dataset=None):
+  def __init__(self, kind=None, dataset=None):
     self._dataset = dataset
     self._pb = datastore_pb.Query()
 
-    if kinds:
-      self.kind(*kinds)
+    if kind:
+      self._pb.kind.add().name = kind
 
   def _clone(self):
     # TODO(jjg): Double check that this makes sense...
