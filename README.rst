@@ -1,6 +1,13 @@
 Google Cloud Datastore
 ======================
 
+Official documentation
+----------------------
+
+If you just want to **use** the library
+(not contribute to it),
+`check out the official documentation <http://gclouddatastore.readthedocs.org/en/latest/index.html>`_!
+
 Incredibly quick demo
 ---------------------
 
