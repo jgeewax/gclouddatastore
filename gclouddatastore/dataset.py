@@ -13,7 +13,7 @@ class Dataset(object):
   however it didn't seem right to collapse the functionality
   of a connection and a dataset together into a single class.
 
-  Datasets (like :class:`gclouddatastore.query.Query`s)
+  Datasets (like :class:`gclouddatastore.query.Query`)
   are immutable.
   That is, you cannot change the ID and connection
   references.
