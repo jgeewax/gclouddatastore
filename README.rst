@@ -39,12 +39,16 @@ Where can I find more information?
 How do I build the docs?
 ------------------------
 
+Make sure you have ``sphinx`` installed and::
+
   $ git clone ...
   $ cd gclouddatastore/docs
   $ make html
 
 How do I run the tests?
 -----------------------
+
+Make sure you have ``nose`` installed and::
 
   $ git clone ...
   $ nosetests
