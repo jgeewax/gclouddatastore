@@ -33,7 +33,7 @@ The main concepts with this API are:
 """
 
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 def get_connection(client_email, private_key_path):

@@ -34,6 +34,19 @@ The ``gclouddatastore`` library is ``pip`` install-able::
 
   $ pip install gclouddatastore
 
+.. note::
+  If you have trouble installing
+  ``pycrypto`` or ``pyopenssl``
+  (and you're on Ubuntu),
+  you can try install the precompiled packages::
+
+    $ sudo apt-get install python-crypto python-openssl
+
+  If you want to install everything with ``pip``,
+  try installing the ``dev`` packages beforehand::
+
+    $ sudo apt-get install python-dev libssl-dev
+
 OK, I installed it. Now what?
 -----------------------------
 
