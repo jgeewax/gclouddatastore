@@ -81,7 +81,9 @@ class Dataset(object):
     :rtype: :class:`gclouddatastore.entity.Entity` or ``None``
     :return: The requested entity, or ``None`` if there was no match found.
     """
-    return self.get_entities([key])
+    entities = self.get_entities([key])
+    if entities:
+      return entities[0]
 
   def get_entities(self, keys):
     # This import is here to avoid circular references.
